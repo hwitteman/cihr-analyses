@@ -43,12 +43,12 @@ X <- matrix(c(505-235,861-324,41-8,109-15),nrow=2,ncol=2,byrow=T); X; prop.table
 
 mf <- c(rep("F",times=505),rep("M",times=861))
 careerstage <- c(rep("ECI",times=235),rep("est",times=505-235),rep("ECI",times=324),rep("est",times=861-324))
-funded <- c(rep(1,times=8),rep(0,times=235-8), #ECI women
-            rep(1,times=41-8),rep(0,times=505-235-(41-8)), #established women
-            rep(1,times=15),rep(0,times=324-15), #ECI men
-            rep(1,times=109-15),rep(0,times=861-324-(109-15))) #established men
+funded <- c(rep(1,times=8),rep(0,times=235-8), #ECI F
+            rep(1,times=41-8),rep(0,times=505-235-(41-8)), #non-ECI (established) F
+            rep(1,times=15),rep(0,times=324-15), #ECI M
+            rep(1,times=109-15),rep(0,times=861-324-(109-15))) #non-ECI (established) M
 FS <- data.frame(mf,careerstage,funded)
-X<-table(FS$funded,FS$mf,FS$careerstage); X; rm(X)
+X <- table(FS$funded,FS$mf,FS$careerstage); X; rm(X)
 
 #### RESPONSE RATE ####
 
@@ -72,7 +72,7 @@ X<-table(FS$funded,FS$mf,FS$careerstage); X; rm(X)
 # FS$mf <- relevel(FS$mf, ref = "M")
 # not using this here but allows to look at this from other direction if desired
 
-FSglmfit <-glm(formula = funded ~ mf+careerstage, family = binomial, data = FS)
+FSglmfit <- glm(formula = funded ~ mf+careerstage, family = binomial, data = FS)
 summary(FSglmfit)
 exp(coef(FSglmfit))[-1] # odds ratio (without intercept)
 exp(confint(FSglmfit))[-1,] # 95% CI odds ratio (without intercept)
