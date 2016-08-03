@@ -137,7 +137,7 @@ FS2$sc2 <- ifelse (FS2$mf2 == "F" & FS2$careerstage2 == "ECI", "F-ECI",
 table(FS2$mf2,FS2$sc2) # checks out
 table(FS2$careerstage2,FS2$sc2) # checks out
 
-# GLM model with single predictor
+# logistic regression with single predictor
 
 FS2$sc2 <- as.factor(FS2$sc2)
 FS2$sc2 <- relevel(FS2$sc2, ref = "M-est") # sets reference as established (mid/senior) men
